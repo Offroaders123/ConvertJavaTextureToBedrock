@@ -4,7 +4,7 @@ build
 node_modules
 old
 vendor
-*.lock
-*-lock.json
+# *.lock
+# *-lock.json
 *.log
 .DS_STORE
