@@ -2,7 +2,6 @@
 
 import { defineConfig } from "vite";
 import simpleHtmlPlugin from "vite-plugin-simple-html";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { description, version } from "./package.json";
 
 export default defineConfig({
@@ -27,6 +26,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      path: "./src/js/browserify/path/index.mjs",
       "fs/promises": "./src/js/browserify/fs/promises/index.mjs",
       fs: "./src/js/browserify/fs/index.mjs"
     }
@@ -41,17 +41,6 @@ export default defineConfig({
           description,
           version
         }
-      }
-    }),
-    nodePolyfills({
-      include: [
-        "buffer",
-        "fs",
-        "path",
-        "stream"
-      ],
-      globals: {
-        process: true
       }
     })
   ]
