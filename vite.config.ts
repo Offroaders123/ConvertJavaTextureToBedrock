@@ -1,5 +1,3 @@
-// @ts-check
-
 import { defineConfig } from "vite";
 import simpleHtmlPlugin from "vite-plugin-simple-html";
 import { description, version } from "./package.json";
@@ -26,9 +24,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      path: "./src/js/browserify/path/index.mjs",
-      "fs/promises": "./src/js/browserify/fs/promises/index.mjs",
-      fs: "./src/js/browserify/fs/index.mjs"
+      path: "./src/js/browserify/path/index.mts",
+      "fs/promises": "./src/js/browserify/fs/promises/index.mts",
+      fs: "./src/js/browserify/fs/index.mts"
     }
   },
   define: {
