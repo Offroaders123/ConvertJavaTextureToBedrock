@@ -1,6 +1,6 @@
 .idea
 .npmrc
-build
+dist
 node_modules
 old
 vendor

@@ -5,14 +5,8 @@ import { description, version } from "./package.json";
 export default defineConfig({
   base: "./",
   build: {
-    outDir: "./build",
     target: "esnext",
-    sourcemap: true,
-    rollupOptions: {
-      input: {
-        app: "./src/html/index.html"
-      }
-    }
+    sourcemap: true
   },
   server: {
     port: 5500,
