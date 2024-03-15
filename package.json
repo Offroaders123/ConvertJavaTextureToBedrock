@@ -3,6 +3,7 @@
     "productName": "ConvertJavaTextureToBedrockWebApp",
     "version": "4.3.4",
     "description": "Convert a Java Texture Pack to Bedrock Texture Pack",
+    "type": "module",
     "keywords": [
         "Minecraft",
         "Texture",
@@ -29,13 +30,17 @@
         "materialize-css": "1.0.0",
         "offline-plugin": "5.0.7",
         "path-browserify": "1.0.1",
-        "sweetalert": "2.1.2"
+        "sweetalert": "2.1.2",
+        "vite": "^5.1.6",
+        "vite-plugin-simple-html": "^0.1.2"
     },
     "engines": {
         "node": ">=14.0.0"
     },
     "scripts": {
-        "build": "export NODE_OPTIONS=--openssl-legacy-provider; node_modules/.bin/webpack --config webpack.config.js"
+        "build": "vite build",
+        "dev": "vite",
+        "preview": "vite preview"
     },
     "private": false
 }
