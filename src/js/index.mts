@@ -1,63 +1,58 @@
 import fileSaver from "file-saver";
-import OfflinePluginRuntime from "offline-plugin/runtime";
+// import OfflinePluginRuntime from "offline-plugin/runtime";
 import swal from "sweetalert";
 import Worker from "./worker.js?worker";
 import "./../css/style.less";
 import "./images.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    const toastMessage = document.getElementById("toastMessage");
+    const toastMessage = document.getElementById("toastMessage")! as HTMLDivElement;
 
-    if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
-        OfflinePluginRuntime.install({
-            onInstalled: () => {
-                showToastMessage("Ready for install and use offline", 5000, () => {
+    // if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+    //     OfflinePluginRuntime.install({
+    //         onInstalled: () => {
+    //             showToastMessage("Ready for install and use offline", 5000, () => {
 
-                });
-            },
-            onUpdateReady: () => {
-                OfflinePluginRuntime.applyUpdate();
-            },
-            onUpdated: () => {
-                showToastMessage("Update installed - Reloading ...", 2000, () => {
-                    location.reload();
-                });
-            }
-        });
-    }
+    //             });
+    //         },
+    //         onUpdateReady: () => {
+    //             OfflinePluginRuntime.applyUpdate();
+    //         },
+    //         onUpdated: () => {
+    //             showToastMessage("Update installed - Reloading ...", 2000, () => {
+    //                 location.reload();
+    //             });
+    //         }
+    //     });
+    // }
 
-    const selectInputFileButton = document.getElementById("selectInputFileButton");
+    const selectInputFileButton = document.getElementById("selectInputFileButton")! as HTMLInputElement;
     selectInputFileButton.addEventListener("change", startConvert);
 
-    const selectInputFolderButton = document.getElementById("selectInputFolderButton");
+    const selectInputFolderButton = document.getElementById("selectInputFolderButton")! as HTMLInputElement;
     if (supportsFolderSelect()) {
-        selectInputFolderButton.parentElement.classList.remove("disabled");
+        selectInputFolderButton.parentElement!.classList.remove("disabled");
         selectInputFolderButton.addEventListener("change", startConvert);
     }
 
-    const experimentalSwitch = document.getElementById("experimentalSwitch");
+    const experimentalSwitch = document.getElementById("experimentalSwitch")! as HTMLInputElement;
     experimentalSwitch.checked = (localStorage[experimentalSwitch.id] === "true");
     experimentalSwitch.addEventListener("change", () => {
         localStorage[experimentalSwitch.id] = experimentalSwitch.checked;
     });
 
-    const main = document.querySelector("main");
+    const main = document.querySelector("main")!;
     main.addEventListener("dragenter", startConvertDrop);
     main.addEventListener("dragleave", startConvertDrop);
     main.addEventListener("dragover", startConvertDrop);
     main.addEventListener("drop", startConvertDrop);
 
-    let worker = null;
+    let worker: Worker | null = null;
 
     const logs = document.createElement("ul");
     logs.classList.add("log");
 
-    /**
-     * @param {string} message
-     * @param {number} duration
-     * @param {function} func
-     */
-    function showToastMessage(message, duration, func) {
+    function showToastMessage(message: string, duration: number, func: () => void): void {
         toastMessage.innerText = message;
 
         toastMessage.dataset.show = "true";
@@ -66,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(hide, duration);
 
-        function hide() {
+        function hide(): void {
             toastMessage.removeEventListener("click", hide);
 
             delete toastMessage.dataset.show;
@@ -75,10 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /**
-     * @returns {boolean}
-     */
-    function supportsFolderSelect() {
+    function supportsFolderSelect(): boolean {
         return (
             "webkitdirectory" in HTMLInputElement.prototype &&
             "webkitRelativePath" in File.prototype &&
@@ -88,11 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ));
     }
 
-    /**
-     * @returns {Promise<>}
-     */
-    async function startConvert() {
-        const files = this.files;
+    async function startConvert(this: HTMLInputElement | DataTransfer): Promise<void> {
+        const files = this.files!;
 
         if (files.length === 0) {
             return;
@@ -112,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
             closeOnClickOutside: false,
             closeOnEsc: false
         });
-        document.querySelector(".swal-button--loading").disabled = true;
+        document.querySelector<HTMLButtonElement>(".swal-button--loading")!.disabled = true;
 
         try {
             if (worker !== null) {
@@ -134,12 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /**
-     * @param {DragEvent} e
-     *
-     * @returns {Promise<>}
-     */
-    async function startConvertDrop(e) {
+    async function startConvertDrop(this: HTMLElement, e: DragEvent): Promise<void> {
         e.preventDefault();
 
         this.classList.remove("dragover");
@@ -151,19 +135,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 break;
 
             case "drop":
-                return startConvert.call(e.dataTransfer);
+                return startConvert.call(e.dataTransfer!);
 
             default:
                 break;
         }
     }
 
-    /**
-     * @param {MessageEvent} e
-     *
-     * @returns {Promise<>}
-     */
-    async function afterConvert(e) {
+    async function afterConvert(e: MessageEvent): Promise<void> {
         const { log, log_color_class, output } = e.data;
 
         if (log) {
@@ -194,10 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /**
-     * @param {ErrorEvent} err
-     */
-    function errorConvert(err) {
+    function errorConvert(err: ErrorEvent): void {
         // Allow select same file again
         selectInputFileButton.value = selectInputFolderButton.value = "";
 
@@ -210,11 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
         _log(`ERROR: ${err.message}`, "red");
     }
 
-    /**
-     * @param {string|undefined} log
-     * @param {string|undefined} log_color_class
-     */
-    function _log(log = undefined, log_color_class = undefined) {
+    function _log(log?: string, log_color_class?: string): void {
         if (log) {
             const li = document.createElement("li");
 

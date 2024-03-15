@@ -12,10 +12,8 @@ addEventListener("message", async e => {
                 new class extends AbstractLog {
                     /**
                      * @inheritDoc
-                     *
-                     * @param {string|undefined} log_color_class
                      */
-                    log(log, log_color_class = undefined) {
+                    log(log, log_color_class: string | undefined = undefined) {
                         postMessage({ log, log_color_class })
                     }
 
