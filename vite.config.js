@@ -26,9 +26,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      path: "./src/js/browserify/path/index.mjs",
+      "buffer/": "./src/js/browserify/buffer/index.mjs",
       "fs/promises": "./src/js/browserify/fs/promises/index.mjs",
-      fs: "./src/js/browserify/fs/index.mjs"
+      fs: "./src/js/browserify/fs/index.mjs",
+      path: "./src/js/browserify/path/index.mjs",
+      stream: "./src/js/browserify/stream/index.mjs",
+      zlib: "./src/js/browserify/zlib/index.mjs"
     }
   },
   define: {

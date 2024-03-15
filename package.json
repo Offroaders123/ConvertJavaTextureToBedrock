@@ -42,5 +42,10 @@
         "dev": "vite",
         "preview": "vite preview"
     },
-    "private": false
+    "private": false,
+    "dependencies": {
+        "browserify-zlib": "^0.2.0",
+        "buffer": "^6.0.3",
+        "stream-browserify": "^3.0.0"
+    }
 }
