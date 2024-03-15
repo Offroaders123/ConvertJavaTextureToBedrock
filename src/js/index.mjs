@@ -1,9 +1,9 @@
 import fileSaver from "file-saver";
 import OfflinePluginRuntime from "offline-plugin/runtime";
 import swal from "sweetalert";
-import Worker from "./worker.js";
+import Worker from "./worker.js?worker";
 import "./../css/style.less";
-import Images from "./images.js";
+import "./images.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const toastMessage = document.getElementById("toastMessage");

@@ -9,6 +9,7 @@ export default defineConfig({
   build: {
     outDir: "./build",
     target: "esnext",
+    sourcemap: true,
     rollupOptions: {
       input: {
         app: "./src/html/index.html"
@@ -22,6 +23,16 @@ export default defineConfig({
   preview: {
     port: 5500,
     strictPort: true
+  },
+  resolve: {
+    alias: {
+      path: "./src/js/browserify/path/index.mjs",
+      "fs/promises": "./src/js/browserify/fs/promises/index.mjs",
+      fs: "./src/js/browserify/fs/index.mjs"
+    }
+  },
+  define: {
+    process
   },
   plugins: [
     simpleHtmlPlugin({
