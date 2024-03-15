@@ -1,5 +1,5 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
+// const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OfflinePlugin = require("offline-plugin");
@@ -71,41 +71,41 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css",
         }),
-        new FaviconsWebpackPlugin({
-            devMode: "webapp",
-            logo: "./src/img/icon.svg",
-            mode: "webapp",
-            favicons: {
-                appDescription: PACKAGE.description,
-                appName: PACKAGE.productName,
-                appShortName: PACKAGE.productName,
-                appleStatusBarStyle: "black",
-                background: "#FFFFFF",
-                developerName: PACKAGE.author,
-                developerURL: null,
-                dir: null,
-                display: "standalone",
-                icons: {
-                    android: true,
-                    appleIcon: true,
-                    favicons: true,
-                    appleStartup: false,
-                    coast: false,
-                    firefox: false,
-                    windows: false,
-                    yandex: false
-                },
-                lang: null,
-                manifestRelativePaths: true,
-                orientation: "any",
-                path: "./",
-                start_url: "..",
-                theme_color: "#795548",
-                version: PACKAGE.version
-            },
-            prefix: "webapp",
-            publicPath: "./"
-        }),
+        // new FaviconsWebpackPlugin({
+        //     devMode: "webapp",
+        //     logo: "./src/img/icon.svg",
+        //     mode: "webapp",
+        //     favicons: {
+        //         appDescription: PACKAGE.description,
+        //         appName: PACKAGE.productName,
+        //         appShortName: PACKAGE.productName,
+        //         appleStatusBarStyle: "black",
+        //         background: "#FFFFFF",
+        //         developerName: PACKAGE.author,
+        //         developerURL: null,
+        //         dir: null,
+        //         display: "standalone",
+        //         icons: {
+        //             android: true,
+        //             appleIcon: true,
+        //             favicons: true,
+        //             appleStartup: false,
+        //             coast: false,
+        //             firefox: false,
+        //             windows: false,
+        //             yandex: false
+        //         },
+        //         lang: null,
+        //         manifestRelativePaths: true,
+        //         orientation: "any",
+        //         path: "./",
+        //         start_url: "..",
+        //         theme_color: "#795548",
+        //         version: PACKAGE.version
+        //     },
+        //     prefix: "webapp",
+        //     publicPath: "./"
+        // }),
         ...(!isDebug ? [new OfflinePlugin({
             ServiceWorker: {
                 events: true
