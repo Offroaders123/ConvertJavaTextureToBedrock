@@ -29,9 +29,9 @@
         "less": "3.11.1",
         "materialize-css": "1.0.0",
         "offline-plugin": "5.0.7",
-        "path-browserify": "1.0.1",
         "sweetalert": "2.1.2",
         "vite": "^5.1.6",
+        "vite-plugin-node-polyfills": "^0.21.0",
         "vite-plugin-simple-html": "^0.1.2"
     },
     "engines": {
@@ -42,10 +42,5 @@
         "dev": "vite",
         "preview": "vite preview"
     },
-    "private": false,
-    "dependencies": {
-        "browserify-zlib": "^0.2.0",
-        "buffer": "^6.0.3",
-        "stream-browserify": "^3.0.0"
-    }
+    "private": false
 }
